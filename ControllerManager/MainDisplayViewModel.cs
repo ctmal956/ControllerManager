@@ -10,6 +10,7 @@ using System.Xml;
 using WPFCommon;
 using ControllerManager.Interfaces;
 using Vixen;
+using System.IO;
 
 namespace ControllerManager
 {
@@ -21,6 +22,11 @@ namespace ControllerManager
         private ObservableCollection<IDisplayAbleObject> _deviceObjectList = new ObservableCollection<IDisplayAbleObject>();
         private ObservableCollection<IDisplayAbleObject> _channelList = new ObservableCollection<IDisplayAbleObject>();
         private EventSequence _sequence;
+        private string _sequenceBackupPath = Path.Combine(Paths.SequencePath, "Backup");
+        private XmlDocument _profileDocument;
+        private string _profileFilename;
+        private string _profileExtension = ".cmp";
+
 
         public MainDisplayViewModel(EventSequence sequence,XmlNode dataNode)
         {
@@ -55,12 +61,25 @@ namespace ControllerManager
         private void Save()
         {
             //currently test data
-            Controller controller = new Controller();
-            controller.ChannelCount = 6;
-            controller.Name = "TestController";
+            //Controller controller = new Controller();
+            //controller.ChannelCount = 6;
+            //controller.Name = "TestController";
 
-            VixenSerializer serializer = new VixenSerializer();
-            serializer.Serialize(controller.GetType(),controller,_dataNode);
+            //VixenSerializer serializer = new VixenSerializer();
+            //serializer.Serialize(controller.GetType(),controller,_dataNode);
+            if (_sequence.Profile != null)
+            {
+                if (_profileDocument == null)
+                {
+                    _profileDocument = Xml.CreateXmlDocument("Profile");
+                    SaveToXML(_profileDocument.DocumentElement);
+                    _profileDocument.Save(Path.Combine(Paths.ProfilePath, _profileFilename));
+                }
+            }
+            else
+            {
+                SaveToXML(_dataNode);
+            }
         }
 
         public void SaveToXML(XmlNode dataNode)
@@ -119,6 +138,10 @@ namespace ControllerManager
 
             controllerManager.DisplayItems = _deviceObjectList ;
             controllerManager.Channels = _channelList;
+            if (_sequence.Profile !=null)
+            {
+                _profileFilename = _sequence.Profile + _profileExtension;
+            }
 
         }
 
@@ -183,7 +206,7 @@ namespace ControllerManager
 
         public void SaveCommandExecuted()
         {
-            SaveToXML(_dataNode);
+            Save();
         }
 
         public void TestButtonExecuted()

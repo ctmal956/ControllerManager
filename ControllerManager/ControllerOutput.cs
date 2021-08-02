@@ -65,7 +65,9 @@ namespace ControllerManager
 
         public void SaveToXML(XmlNode dataNode)
         {
-            Xml.SetNewValue(dataNode, "ControllerOutput", IsBroken.ToString());
+            XmlNode newNode = Xml.SetNewValue(dataNode, "ControllerOutput", Output.ToString());
+            Xml.SetAttribute(newNode, "IsBroken", IsBroken.ToString());
+            
         }
 
         public override string ToString()
