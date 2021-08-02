@@ -1,0 +1,78 @@
+﻿<Window x:Class="ControllerManager.MainDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ControllerManager"
+        xmlns:userControls="clr-namespace:ControllerManager.UserControls"
+        mc:Ignorable="d"
+        Title="MainDisplay" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:Controller}">
+            <userControls:ControllerDetailControl DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:VixenNativeChannel}">
+            <userControls:ChannelDetailControl DataContext="{Binding}"/>
+        </DataTemplate>
+        <Style TargetType="ListBox">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="50">
+            <Button Content="Save" Command="{Binding SaveCommand}"/>
+            <Button Content="Add Controller" Command="{Binding AddControllerCommand}"/>
+            <Button Content="Test" Command="{Binding TestButtonCommand}"/>
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0"
+                 ItemsSource="{Binding DisplayItems}" SelectedItem="{Binding SelectedItem}"
+                     
+                     >
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type local:VixenNativeChannel}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="{Binding Name}"/>
+                            <TextBlock Grid.Row="1" Text="This is an output."/>
+                        </Grid>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type local:Controller}" >
+                        <Border BorderBrush="Red" BorderThickness="1">
+                                <Expander Grid.Row="1" DragOver="Expander_DragOver" IsExpanded="{Binding IsExpanded}">
+                                <Expander.Header>
+                                    <TextBlock Text="{Binding Name}" Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}"/>
+                                </Expander.Header>
+                                <Grid>
+                                    <ListBox x:Name="ListboxOutputs" ItemsSource="{Binding Outputs}"
+                                             AllowDrop="True"
+                                             Drop="ListboxOutputs_Drop" 
+                                             >
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}"/>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Grid>
+                                    
+                            </Expander>
+                            </Border>
+                    </DataTemplate>
+                </ListBox.Resources>
+            </ListBox>
+            <Grid Grid.Column="1">
+                <ContentPresenter Content="{Binding SelectedItem}"/>
+            </Grid>
+        </Grid>
+        
+
+    </DockPanel>
+</Window>
