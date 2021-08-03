@@ -34,10 +34,51 @@ namespace ControllerManager
 
         
 
-        public Controller()
+        //public Controller()
+        //{
+        //    Init();
+        //}
+
+        public Controller(string name, int outputCount)
+        {
+            Init();
+
+            Name = name;
+            ChannelCount = outputCount;
+            for (int i = 0; i < ChannelCount; i++)
+            {
+                Outputs.Add(new ControllerOutput(i + 1));
+            }
+
+        }
+
+        public Controller(XmlNode dataNode)
+        {
+            Init();
+            Name = dataNode.Attributes["Name"].Value;
+            ChannelCount = Convert.ToInt32(dataNode.Attributes["ChannelCount"].Value);
+          
+            Location = dataNode.Attributes["Location"].Value;
+            XmlNode outputs = Xml.GetNodeAlways(dataNode, "Outputs");
+            if (outputs.HasChildNodes)
+            {
+                foreach (XmlNode output in outputs.ChildNodes)
+                {
+                    Outputs.Add(new ControllerOutput(output));
+                }
+
+            }
+        }
+
+        private void Init()
         {
             Outputs = new ObservableCollection<IControllerOutput>();
             IsExpanded = false;
+        }
+
+        private void InitOutputs(int outputCount)
+        {
+
         }
 
 

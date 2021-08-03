@@ -25,6 +25,16 @@ namespace ControllerManager
             }
         }
 
+        public ControllerOutput(XmlNode dataNode)
+        {
+            Output = Convert.ToInt32(dataNode.InnerText);
+            IsBroken = Convert.ToBoolean(dataNode.Attributes["IsBroken"].Value);
+        }
+
+        public ControllerOutput(int channelNumber)
+        {
+            Output = channelNumber;
+        }
 
         public ControllerOutput(IVixenChannel vixenOutput, int output, bool isEnabled, bool isBroken)
         {

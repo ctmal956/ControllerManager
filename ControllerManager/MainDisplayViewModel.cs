@@ -16,7 +16,7 @@ namespace ControllerManager
 {
     class MainDisplayViewModel:ViewModelBase,IVixenSaveData,IIsDropable
     {
-        private ControllerManager controllerManager = new ControllerManager();
+        private ControllerManager _controllerManager = new ControllerManager();
         private String nameBase = "Controller";
         private XmlNode _dataNode;
         private ObservableCollection<IDisplayAbleObject> _deviceObjectList = new ObservableCollection<IDisplayAbleObject>();
@@ -26,6 +26,8 @@ namespace ControllerManager
         private XmlDocument _profileDocument;
         private string _profileFilename;
         private string _profileExtension = ".cmp";
+        private string _profileFullPath;
+        private string _controllerNameBase = "Controller";
 
 
         public MainDisplayViewModel(EventSequence sequence,XmlNode dataNode)
@@ -41,8 +43,8 @@ namespace ControllerManager
 
         public ObservableCollection<IDisplayAbleObject> DisplayItems
         {
-            get { return controllerManager.DisplayItems; }
-            set { controllerManager.DisplayItems = value;}
+            get { return _controllerManager.DisplayItems; }
+            set { _controllerManager.DisplayItems = value;}
         }
 
         private IEnumerable<IController> Controllers
@@ -123,6 +125,65 @@ namespace ControllerManager
             }
         }
 
+        /// <summary>
+        /// Loads saved data from the provided xmlnode
+        /// </summary>
+        /// <param name="savedDataNode"></param>
+        private void LoadSavedDataFromNode(XmlNode savedDataNode)
+        {
+            //XmlNode controllers = Xml.GetNodeAlways(savedDataNode, "Controllers");
+            XmlNode controllers = savedDataNode.SelectSingleNode("Controllers");
+            if (controllers != null)
+            {
+                if (controllers.HasChildNodes)
+                {
+                    foreach (XmlNode controller in controllers.ChildNodes)
+                    {
+                        _controllerManager.AddController(new Controller(controller));
+                    }
+                }
+            } 
+        }
+
+        private bool PrepareProfileNode()
+        {
+            _profileFilename = _sequence.Profile + _profileExtension;
+            _profileFullPath = Path.Combine(Paths.ProfilePath, _profileFilename);
+
+            if (File.Exists(_profileFullPath))
+            {
+                if (_profileDocument == null)
+                {
+
+                    _profileDocument = Xml.LoadDocument(_profileFullPath);
+
+                }
+                _dataNode = Xml.GetNodeAlways(_profileDocument, "Profile");
+                return true;
+            }
+            return false;
+            
+        }
+
+        private void LoadSavedData()
+        {
+            if (_sequence.Profile != null)
+            {
+                if (PrepareProfileNode())
+                    LoadSavedDataFromNode(_dataNode);
+            }
+            else
+            {
+                LoadSavedDataFromNode(_dataNode);
+            }
+        }
+
+        /// <summary>
+        /// Determines if data is to be saved/restored in a profile or in the sequence.
+        /// And sets up all variables.
+        /// </summary>
+
+
         private void Init()
         {
             if (_sequence.Profile != null)
@@ -136,12 +197,10 @@ namespace ControllerManager
 
             LoadDeviceObjects();
 
-            controllerManager.DisplayItems = _deviceObjectList ;
-            controllerManager.Channels = _channelList;
-            if (_sequence.Profile !=null)
-            {
-                _profileFilename = _sequence.Profile + _profileExtension;
-            }
+            _controllerManager.DisplayItems = _deviceObjectList ;
+            _controllerManager.Channels = _channelList;
+
+            LoadSavedData();
 
         }
 
@@ -217,12 +276,12 @@ namespace ControllerManager
 
         public void AddControllerExecuted()
         {
-            controllerManager.AddController("Controller", 16);
+            _controllerManager.AddController("Controller", 16);
         }
 
         public bool CanExecuteIfCanAddControllers()
         {
-            return controllerManager.CanAddControllers;
+            return _controllerManager.CanAddControllers;
         }
 
         public bool CanExecuteAlways()
