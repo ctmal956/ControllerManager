@@ -20,7 +20,6 @@ namespace ControllerManager.UserControls
     /// </summary>
     public partial class ControllerDetailControl : UserControl
     {
-        ListBox _dragSource;
         Point _dragStart = new Point();
         DragDropParameters _dragDropParameter = new DragDropParameters();
         ListBoxItem _dragListBoxItem;

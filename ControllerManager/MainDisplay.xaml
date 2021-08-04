@@ -36,12 +36,14 @@
                 <ListBox.Resources>
                     <DataTemplate DataType="{x:Type local:VixenNativeChannel}">
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="{Binding Name}"/>
-                            <TextBlock Grid.Row="1" Text="This is an output."/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" Padding="10,0,0,0"/>
+                            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="2">
+                                <Rectangle Height="10" Width="20" Fill="{Binding ChannelColor,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
                         </Grid>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type local:Controller}" >
@@ -57,7 +59,18 @@
                                              >
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Name}"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="1" Text="{Binding Name}" Padding="10,0,0,0"/>
+                                                    <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Padding="2">
+                                                        <Rectangle Height="10" Width="20" Fill="{Binding ChannelColor,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </Grid>
+                                                
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
                                     </ListBox>

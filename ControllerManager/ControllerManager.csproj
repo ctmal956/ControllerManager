@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -87,6 +88,7 @@
     <Compile Include="VixenInit.cs" />
     <Compile Include="VixenNativeChannel.cs" />
     <Compile Include="VixenSerializer.cs" />
+    <Compile Include="WPFCommon\ColorUtil.cs" />
     <Compile Include="WPFCommon\MessageValueChangedEventArgs.cs" />
     <Compile Include="WPFCommon\Messenger.cs" />
     <Compile Include="WPFCommon\RelayCommand.cs" />

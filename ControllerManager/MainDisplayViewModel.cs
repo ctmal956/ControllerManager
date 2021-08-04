@@ -17,7 +17,6 @@ namespace ControllerManager
     class MainDisplayViewModel:ViewModelBase,IVixenSaveData,IIsDropable
     {
         private ControllerManager _controllerManager = new ControllerManager();
-        private String nameBase = "Controller";
         private XmlNode _dataNode;
         private ObservableCollection<IDisplayAbleObject> _deviceObjectList = new ObservableCollection<IDisplayAbleObject>();
         private ObservableCollection<IDisplayAbleObject> _channelList = new ObservableCollection<IDisplayAbleObject>();
@@ -27,8 +26,6 @@ namespace ControllerManager
         private string _profileFilename;
         private string _profileExtension = ".cmp";
         private string _profileFullPath;
-        private string _controllerNameBase = "Controller";
-
 
         public MainDisplayViewModel(EventSequence sequence,XmlNode dataNode)
         {
@@ -38,8 +35,6 @@ namespace ControllerManager
             _dataNode = dataNode;
             Init();
         }
-
-        private ObservableCollection<IDisplayAbleObject> _outputObjects;
 
         public ObservableCollection<IDisplayAbleObject> DisplayItems
         {

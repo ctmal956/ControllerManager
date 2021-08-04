@@ -12,6 +12,7 @@ namespace ControllerManager
         bool IsBroken { get; set; }
         IVixenChannel VixenChannel { get; set; }
         int Output { get; set; }
+        void RefreshChannelColor();
 
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using Vixen;
 using WPFCommon;
 
@@ -11,7 +12,6 @@ namespace ControllerManager
 {
     public class VixenNativeChannel : ViewModelBase, IVixenChannel
     {
-        Point _dragStartPoint;
         public VixenNativeChannel(Channel vixenOutput)
         {
             VixenChannel = vixenOutput;
@@ -51,8 +51,21 @@ namespace ControllerManager
             get { return VixenChannel.Enabled; }
         }
 
+        //public System.Windows.Media.Color ChannelColor
+        //{
+        //    get
+        //    {
+        //        return ColorUtil.WpfColorFromDrawingColor(VixenChannel.Color);
+        //    }
+        //}
 
-        
+        public Brush ChannelColor
+        {
+            get { return new SolidColorBrush(ColorUtil.WpfColorFromDrawingColor(VixenChannel.Color)); }
+        }
+
+
+
 
 
     }

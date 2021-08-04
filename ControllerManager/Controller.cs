@@ -12,7 +12,6 @@ using System.Xml.Serialization;
 using ControllerManager.ExtensionMethods;
 using ControllerManager.CustomAttributes;
 using Vixen;
-using WPFCommon;
 using System.Windows.Media;
 
 namespace ControllerManager
@@ -150,6 +149,8 @@ namespace ControllerManager
         public void DroppedItemExecuted(DragDropParameters parameters)
         {
             SwapChannels(parameters.SourceOutput, parameters.DestnationOutput);
+            parameters.DestnationOutput.RefreshChannelColor();
+            parameters.SourceOutput.RefreshChannelColor();
         }
 
         public bool CanExecuteDroppedItem()
@@ -191,10 +192,6 @@ namespace ControllerManager
         }
 
         public DragDropStates DragDropState { get; set; } = DragDropStates.None;
-
-        private Color _backgroundColor;
-
-        
 
     }
 }

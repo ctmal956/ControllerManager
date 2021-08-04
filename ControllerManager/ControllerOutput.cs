@@ -14,6 +14,9 @@ namespace ControllerManager
         private IVixenChannel _vixenOutput;
         public ControllerOutput(IVixenChannel vixenOutput,int output) : this(vixenOutput, output, true, false) { }
         private int _output;
+        private Brush _blueBrush = new SolidColorBrush(Colors.Blue);
+        private Brush _yellowBrush = new SolidColorBrush(Colors.Yellow);
+        private Brush _whiteBrush = new SolidColorBrush(Colors.White);
         
         public int Output
         {
@@ -93,23 +96,31 @@ namespace ControllerManager
             set { dragDropState = value; }
         }
 
-        public Color BackgroundColor
+        public Brush BackgroundColor
         {
             get
             {
+                
                 switch (DragDropState)
                 {
                     case DragDropStates.DragItem:
-                        return Colors.Orange;
-                        break;
+                        return _blueBrush;
                     case DragDropStates.DragTarget:
-                        return Colors.Yellow;
-                        break;
+                        return _yellowBrush;
                     default:
-                        return Colors.Purple;
-                        break;
+                        return _whiteBrush;
                 }
             }
+        }
+
+        public Brush ChannelColor
+        {
+            get { return new SolidColorBrush(ColorUtil.WpfColorFromDrawingColor(VixenChannel.VixenChannel.Color)); }
+        }
+
+        public void RefreshChannelColor()
+        {
+            OnPropertyChanged("ChannelColor");
         }
 
     }
