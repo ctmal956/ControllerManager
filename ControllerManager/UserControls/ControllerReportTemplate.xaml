@@ -21,7 +21,7 @@
         </Style>
     </DockPanel.Resources>
     <TextBlock DockPanel.Dock="Top" Width="576" Text="{Binding Name}" Style="{StaticResource TitleStyle}"/>
-    <TextBlock DockPanel.Dock="Top" Text="Binding Location" Style="{StaticResource LocationStyle}"/>
+    <TextBlock DockPanel.Dock="Top" Text="{Binding Location}" Style="{StaticResource LocationStyle}"/>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -29,7 +29,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ItemsControl ItemsSource="{Binding LeftOutputs}" Grid.Column="1">
+        <ItemsControl ItemsSource="{Binding LeftOutputs}" Grid.Column="1" Margin="5">
             <ItemsControl.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="14"/>
@@ -58,7 +58,7 @@
 
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl ItemsSource="{Binding RightOutputs}" Grid.Column="2">
+        <ItemsControl ItemsSource="{Binding RightOutputs}" Grid.Column="2" Margin="5">
             <ItemsControl.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="14"/>
