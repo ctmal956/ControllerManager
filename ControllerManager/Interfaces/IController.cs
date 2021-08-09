@@ -12,5 +12,6 @@ namespace ControllerManager
         int ChannelCount { get; set; }
         ObservableCollection<IControllerOutput> Outputs { get; set; }
         bool IsExpanded { get; set; }
+        string Location { get; set; }
     }
 }

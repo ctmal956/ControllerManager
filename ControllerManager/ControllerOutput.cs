@@ -39,6 +39,18 @@ namespace ControllerManager
             Output = channelNumber;
         }
 
+        private IDisplayAbleObject _selectedItem;
+        public IDisplayAbleObject SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                System.Windows.MessageBox.Show("In ControllerOutput");
+                OnPropertyChanged("SelectedItem");
+            }
+        }
+
         public ControllerOutput(IVixenChannel vixenOutput, int output, bool isEnabled, bool isBroken)
         {
             IsEnabled = isEnabled;
@@ -64,7 +76,7 @@ namespace ControllerManager
             set
             {
                 _vixenOutput = value;
-                RaiseOnPropertyChanged(new string[]{"Name","IsEnabled"});
+                RaiseOnPropertyChanged(new string[]{"Name","IsEnabled","ChannelColor"});
             }
         }
 
@@ -93,7 +105,11 @@ namespace ControllerManager
         public DragDropStates DragDropState
         {
             get { return dragDropState; }
-            set { dragDropState = value; }
+            set 
+            { 
+                dragDropState = value;
+                OnPropertyChanged("BackgroundColor");
+            }
         }
 
         public Brush BackgroundColor

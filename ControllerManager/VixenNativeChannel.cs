@@ -55,7 +55,7 @@ namespace ControllerManager
         //{
         //    get
         //    {
-        //        return ColorUtil.WpfColorFromDrawingColor(VixenChannel.Color);
+        //        return ColorUtil.WpfColorFromDrawingColor(VixenChannel.Color); 
         //    }
         //}
 

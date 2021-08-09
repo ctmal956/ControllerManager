@@ -15,15 +15,13 @@ using System.Windows.Shapes;
 namespace ControllerManager.UserControls
 {
     /// <summary>
-    /// Interaction logic for ChannelControl.xaml
+    /// Interaction logic for ControllerOutputDetailControl.xaml
     /// </summary>
-    public partial class ChannelDetailControl : UserControl
+    public partial class ControllerOutputDetailControl : UserControl
     {
-        public ChannelDetailControl()
+        public ControllerOutputDetailControl()
         {
             InitializeComponent();
         }
-
-
     }
 }

@@ -18,7 +18,7 @@ namespace ControllerManager
         private bool _canAddControllers = true;
         private Messenger messenger = Messenger.Instance;
         
-
+        
 
         public ControllerManager() : this(new ObservableCollection<IDisplayAbleObject>(), new ObservableCollection<IDisplayAbleObject>()){}
 
@@ -28,6 +28,7 @@ namespace ControllerManager
             _channels = channels;
             CanAddControllers = true;
             messenger.VixenChannelSwapRequested += Messenger_VixenChannelSwapRequested;
+            IsChannelOrderDirty = false;
         }
 
         private void Messenger_VixenChannelSwapRequested(object sender, VixenChannelSwapRequestedEventArgs e)
@@ -50,10 +51,22 @@ namespace ControllerManager
 
         public ObservableCollection<IController> Controllers
         {
-            get { return _controllers; }
+            get 
+            {
+                var controllers = new ObservableCollection<IController>();
+                foreach (var item in DisplayItems)
+                {
+                    IController controller = item as IController;
+                    if (controller != null)
+                    {
+                        controllers.Add(controller);
+                    }
+                }
+                return controllers;
+            }
             set
             {
-                _controllers = value;
+                OnPropertyChanged("Controllers");
             }
         }
 
@@ -85,7 +98,7 @@ namespace ControllerManager
         /// <param name="controller"></param>
         private void AssignVixenChannels(IController controller)
         {
-            int nextChannelIndex = GetTotalControllerChannelCount();
+            int nextChannelIndex = GetControllerCount();
             foreach (IControllerOutput output in controller.Outputs)
             {
                 if (nextChannelIndex < DisplayItems.Count())
@@ -145,6 +158,7 @@ namespace ControllerManager
                 IVixenChannel tmp = source.VixenChannel;
                 source.VixenChannel = destination.VixenChannel;
                 destination.VixenChannel = tmp;
+                IsChannelOrderDirty = true;
             }
         }
 
@@ -152,6 +166,44 @@ namespace ControllerManager
         {
 
         }
+
+        public List<Channel> GetNewOutputList()
+        {
+            var channelList = new List<Channel>();
+            foreach (IDisplayAbleObject item in this.DisplayItems)
+            {
+                var controller = item as IController;
+                if (controller != null)
+                {
+                    foreach (ControllerOutput output in controller.Outputs)
+                    {
+                        if (output.VixenChannel.VixenChannel != null)
+                        {
+                            channelList.Add(output.VixenChannel.VixenChannel);
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    channelList.Add((item as IVixenChannel).VixenChannel);
+                }
+            }
+            return channelList;
+        }
+
+        private bool _isChannelOrderDirty;
+
+        public bool IsChannelOrderDirty
+        {
+            get { return _isChannelOrderDirty; }
+            set
+            {
+                _isChannelOrderDirty = value;
+                OnPropertyChanged("IsChannelOrderDirty");
+            }
+        }
+
 
     }
 }

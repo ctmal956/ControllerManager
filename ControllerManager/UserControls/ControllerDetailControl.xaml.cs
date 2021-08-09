@@ -36,7 +36,7 @@ namespace ControllerManager.UserControls
                 // ListBox item clicked - do some cool things here
                 _dragStart = e.GetPosition(this.OutputList);
                 _dragListBoxItem = item;
-                e.Handled = true;
+                //e.Handled = true;
             }           
         }
 

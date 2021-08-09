@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ControllerManager.UserControls.ChannelDetailControl"
+﻿<UserControl x:Class="ControllerManager.UserControls.ControllerOutputDetailControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -25,16 +25,16 @@
 
         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}"/>
         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Output}"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding }"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding IsEnabled}"/>
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
             <Border BorderBrush="Black" BorderThickness="1" Padding="2">
                 <Rectangle Height="10" Width="20" Fill="{Binding ChannelColor,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
             <Grid/>
         </StackPanel>
-        
-        
-        
+
+
+
 
     </Grid>
 </UserControl>

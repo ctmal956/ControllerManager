@@ -15,7 +15,7 @@ namespace ControllerManager
         private XmlNode _dataNode;
         
         private MainDisplay _display;
-        private MainDisplayViewModel _displayViewModel;
+        //private MainDisplayViewModel _displayViewModel;
 
         public LoadableDataLocation DataLocationPreference
         {
@@ -47,12 +47,11 @@ namespace ControllerManager
                 
                 //notes, just cloning for now, if you save, you'll have to add code here to load deviceObjects
                 
-                _display = new MainDisplay();
+                _display = new MainDisplay(sequence, _dataNode);
                 ElementHost.EnableModelessKeyboardInterop(_display);
-                _displayViewModel = new MainDisplayViewModel(sequence, _dataNode) ;
-                _display.DataContext = _displayViewModel;
-                _display.Show();
-                return true;
+                //_display.DataContext = _display;
+                _display.ShowDialog();
+                return _display.IsDirty;
             }
             
         }
@@ -65,40 +64,6 @@ namespace ControllerManager
         public void Unloading()
         {
             
-        }
-
-        
-
-        
-
-        private void TestProfileOutputs(EventSequence sequence)
-        {
-            sequence.Profile.MoveChannelObject(1, 0);
-        }
-
-
-        //This is the code to save the outputs correctly
-        //private void buttonApply_Click(object sender, EventArgs e)
-        //{
-        //    List<Channel> newOutputList = new List<Channel>();
-        //    foreach (ListViewItem lvi in listViewOutputs.Items)
-        //    {
-        //        newOutputList.Add(lvi.Tag as Channel);
-        //    }
-        //    if (_hasProfile)
-        //    {
-        //        _sequence.Profile.OutputChannels = newOutputList;
-        //        AutoBackupProfile();
-        //        _sequence.Profile.SaveToFile();
-        //        _sequence.Profile.Reload();
-        //        _recentLogCount = 0;
-        //    }
-        //    else
-        //    {
-        //    }
-
-        //    ReloadListViewChannels();
-        //    IsDirty = true;
-        //}
+        }       
     }
 }

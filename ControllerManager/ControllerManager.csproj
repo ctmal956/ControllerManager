@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CD621F8A-4403-4227-A885-9C70ED81FF05}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ControllerLabelMaker</RootNamespace>
+    <RootNamespace>ControllerManager</RootNamespace>
     <AssemblyName>ControllerLabelMaker</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -61,10 +61,14 @@
     <Compile Include="Controller.cs" />
     <Compile Include="ControllerManager.cs" />
     <Compile Include="ControllerOutput.cs" />
+    <Compile Include="ControllerReport.xaml.cs">
+      <DependentUpon>ControllerReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomAttributes\SaveDataAttribute.cs" />
     <Compile Include="DragDropParameters.cs" />
     <Compile Include="DragDropStates.cs" />
     <Compile Include="ExtensionMethods\ObservableCollectionExtensions.cs" />
+    <Compile Include="ExtensionMethods\XmlExtensions.cs" />
     <Compile Include="Interfaces\IControllerOutput.cs" />
     <Compile Include="Interfaces\IDisplayAbleObject.cs" />
     <Compile Include="Interfaces\IController.cs" />
@@ -75,7 +79,6 @@
     <Compile Include="MainDisplay.xaml.cs">
       <DependentUpon>MainDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainDisplayViewModel.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="UserControls\ChannelDetailControl.xaml.cs">
       <DependentUpon>ChannelDetailControl.xaml</DependentUpon>
@@ -83,7 +86,14 @@
     <Compile Include="UserControls\ControllerDetailControl.xaml.cs">
       <DependentUpon>ControllerDetailControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ControllerOutputDetailControl.xaml.cs">
+      <DependentUpon>ControllerOutputDetailControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControllerReportTemplate.xaml.cs">
+      <DependentUpon>ControllerReportTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utility.cs" />
+    <Compile Include="ViewModel\ControllerLabelViewModel.cs" />
     <Compile Include="VixenChannelSwapRequestedEventArgs.cs" />
     <Compile Include="VixenInit.cs" />
     <Compile Include="VixenNativeChannel.cs" />
@@ -119,6 +129,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ControllerReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +142,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ControllerDetailControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ControllerOutputDetailControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ControllerReportTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

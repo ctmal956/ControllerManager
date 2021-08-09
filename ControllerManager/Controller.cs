@@ -31,13 +31,6 @@ namespace ControllerManager
 
         #region constructors
 
-        
-
-        //public Controller()
-        //{
-        //    Init();
-        //}
-
         public Controller(string name, int outputCount)
         {
             Init();
@@ -83,8 +76,7 @@ namespace ControllerManager
 
         #endregion constructors
 
-
-
+        #region Public Properties
 
         public string Name {
             get { return _name; }
@@ -95,8 +87,6 @@ namespace ControllerManager
             }
         }
 
-        
-
         public int ChannelCount
         {
             get { return _channelCount; }
@@ -106,9 +96,7 @@ namespace ControllerManager
                 OnPropertyChanged("ChannelCount"); 
             }
         }
-
-        
-
+      
         public string Location
         {
             get { return _location; }
@@ -118,7 +106,6 @@ namespace ControllerManager
                 OnPropertyChanged("Location"); 
             }
         }
-
         
         public bool IsExpanded
         {
@@ -130,21 +117,41 @@ namespace ControllerManager
             }
         }
 
-
-        private void SwapChannels(IControllerOutput source, IControllerOutput destination)
+        public IControllerOutput SelectedOutput
         {
-            Messenger.Instance.SendVixenChannelSwapRequest(source, destination);
+            get { return _selectedOutput; }
+            set { _selectedOutput = value; }
         }
 
         public ObservableCollection<IControllerOutput> Outputs { get; set; }
 
         public int ChannelStartIndex { get; set; }
 
-        //Point _dragStart = new Point();
-        //public void ListBox_PreviewMouseLeftButtonDown(Point mousePosition)
-        //{
-        //    _dragStart = mousePosition;
-        //}
+        #endregion
+
+
+        private void SwapChannels(IControllerOutput source, IControllerOutput destination)
+        {
+            Messenger.Instance.SendVixenChannelSwapRequest(source, destination);
+        }
+
+
+        #region Commands
+
+        RelayCommand<object> _droppedItem;
+        public ICommand DroppedItem
+        {
+            get
+            {
+                if (_droppedItem == null)
+                {
+                    _droppedItem = new RelayCommand<object>(param => DroppedItemExecuted(param as DragDropParameters), param => CanExecuteDroppedItem());
+                }
+                return _droppedItem;
+            }
+        }
+
+        #endregion
 
         public void DroppedItemExecuted(DragDropParameters parameters)
         {
@@ -160,35 +167,16 @@ namespace ControllerManager
 
         public void SaveToXML(XmlNode dataNode)
         {
-            XmlNode node = Xml.GetEmptyNodeAlways(dataNode, "Controller");
-            Xml.SetAttribute(node, "Name", Name);
-            Xml.SetAttribute(node, "ChannelCount", ChannelCount.ToString());
-            Xml.SetAttribute(node, "Location", Location);
-            XmlNode outputNode =  Xml.GetEmptyNodeAlways(node, "Outputs");
+            XmlNode newNode = dataNode.CreateNewNode("Controller");
+            Xml.SetAttribute(newNode, "Name", Name);
+            Xml.SetAttribute(newNode, "ChannelCount", ChannelCount.ToString());
+            Xml.SetAttribute(newNode, "Location", Location);
+            XmlNode outputNode =  Xml.GetEmptyNodeAlways(newNode, "Outputs");
             foreach (IControllerOutput output in Outputs)
             {
                 output.SaveToXML(outputNode);
             }
-        }
-
-        
-        public IControllerOutput SelectedOutput
-        {
-            get { return _selectedOutput; }
-            set { _selectedOutput = value; }
-        }
-
-        RelayCommand<object> _droppedItem;
-        public ICommand DroppedItem
-        {
-            get
-            {
-                if (_droppedItem == null)
-                {
-                    _droppedItem = new RelayCommand<object>(param => DroppedItemExecuted(param as DragDropParameters), param => CanExecuteDroppedItem());
-                }
-                return _droppedItem;
-            }
+            dataNode.AppendChild(newNode);
         }
 
         public DragDropStates DragDropState { get; set; } = DragDropStates.None;

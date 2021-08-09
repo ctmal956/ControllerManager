@@ -35,7 +35,7 @@
                  >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Background="{Binding BackgroundColor}">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20"/>
                             <ColumnDefinition Width="3"/>
