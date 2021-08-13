@@ -157,6 +157,19 @@ namespace ControllerManager
 
         #region properties
 
+        private int _newControllerChannels = 16;
+
+        public int NewControllerChannels
+        {
+            get { return _newControllerChannels; }
+            set
+            {
+                _newControllerChannels = value;
+                OnPropertyChanged("NewControllerChannels");
+            }
+        }
+
+
         public bool IsDirty
         {
             get { return _dataNotSaved; }
@@ -284,6 +297,7 @@ namespace ControllerManager
         RelayCommand<object> _addController;
         RelayCommand<Object> _testButton;
         RelayCommand<object> _saveCommand;
+        RelayCommand<Object> _previewButton;
 
         public ICommand AddControllerCommand
         {
@@ -306,6 +320,18 @@ namespace ControllerManager
                     _testButton = new RelayCommand<object>(param => this.TestButtonExecuted(), param => this.CanExecuteAlways());
                 }
                 return _testButton;
+            }
+        }
+
+        public ICommand PreviewCommand
+        {
+            get
+            {
+                if (_previewButton == null)
+                {
+                    _previewButton = new RelayCommand<object>(param => this.PreviewExecuted(), param => this.CanExecuteAlways());
+                }
+                return _previewButton;
             }
         }
 
@@ -353,9 +379,18 @@ namespace ControllerManager
 
         }
 
+        public void PreviewExecuted()
+        {
+
+            if (_controllerManager.Controllers == null)
+                return;
+            ControllerReport report = new ControllerReport(_controllerManager.Controllers);
+            report.ShowDialog();
+        }
+
         public void AddControllerExecuted()
         {
-            _controllerManager.AddController("Controller", 16);
+            _controllerManager.AddController("Controller", NewControllerChannels);
         }
 
         public bool CanExecuteIfCanAddControllers()
