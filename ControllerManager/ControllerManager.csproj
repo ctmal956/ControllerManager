@@ -69,6 +69,9 @@
     <Compile Include="DragDropStates.cs" />
     <Compile Include="ExtensionMethods\ObservableCollectionExtensions.cs" />
     <Compile Include="ExtensionMethods\XmlExtensions.cs" />
+    <Compile Include="HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IControllerOutput.cs" />
     <Compile Include="Interfaces\IDisplayAbleObject.cs" />
     <Compile Include="Interfaces\IController.cs" />
@@ -130,6 +133,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ControllerReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

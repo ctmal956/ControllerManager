@@ -1,0 +1,68 @@
+﻿<Window x:Class="ControllerManager.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ControllerManager"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Help" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <RichTextBox Grid.Row="0" Padding="30,30,30,30" Background="LightGray" IsReadOnly="True">
+            <FlowDocument>
+                <Paragraph>
+                    <Bold>Adding Controllers</Bold>
+                </Paragraph>
+                <Paragraph>
+                    To add a controller, change the channel count in "Channels" to the number of channels your controller has and press the + button.  The controller will take the next available outputs that are not already assigned to a controller.
+                </Paragraph>
+                <Paragraph>
+                    <Bold>General interaction</Bold>
+                </Paragraph>
+                <Paragraph>
+                    Right clicking a controller in the left panel will place the controller details in the right panel.  Here you can change the controller values such as the name and location of the controller.
+Left clicking on a controller will expand the controller in the left panel to display the assigned channels.
+Left clicking a channel in the left pane will display the channel properties in the right panel.
+
+                </Paragraph>
+                <Paragraph>
+                    <Bold>Swapping channels in a controller</Bold>
+                </Paragraph>
+                <Paragraph>
+                    To reorder channels within a controller, right click the controller to display its details in the right pane.  In the right pane, left click the channel you want to move and drag it over the channel you want to swap it with.  When you release the left mouse button the two channels will swap.
+Note:  This changes the output channels.  In other words, this will affect how the channels are output to your display.  Its very useful to quickly change an output if, for example, a triac goes bad.
+
+                </Paragraph>
+                <Paragraph>
+                    <Bold>Swapping channels between controllers</Bold>
+                </Paragraph>
+                <Paragraph>Right click the controller that you want to swap a channel from to place it in the right pane.  In the left panel, left click the controller you want to swap channels with.  In the right pane, left click the channel to move and drag it over the channel in the left pane you want to swap it with.  When you release the left mouse button the channels will swap.
+Note: This also changes the output order.  Please read the above message about this.
+                </Paragraph>
+                <Paragraph>
+                    <Bold>When you are happy with your changes be sure to hit the save button.  You also need to hit the save button in Vixen to save to the profile.</Bold>
+                </Paragraph>
+                <Paragraph>
+                    <Bold>Printing Controller labels</Bold>
+                </Paragraph>
+                <Paragraph>Simply hit the print button to view a preview of the labels.  To print, hit the print button.</Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <DockPanel Grid.Row="1">
+            <Button DockPanel.Dock="Right"
+                    Name="CloseButton"
+                    Content="Close"
+                    Padding="10,5,10,5"
+                    Margin="20,10,20,10"
+                    Width="100"
+                    Click="CloseButton_Click"
+                    IsDefault="True"
+                    IsCancel="True" />
+            <Grid />
+        </DockPanel>
+    </Grid>
+</Window>

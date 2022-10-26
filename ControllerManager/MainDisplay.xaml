@@ -158,7 +158,7 @@
                 </Grid>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
                 <Button Content="&#xE8FF;" FontFamily="Segoe MDL2 Assets" FontSize="30" ToolTip="Preview Labels" Command="{Binding PreviewCommand}"/>
-                <Button Content="Test" Command="{Binding TestButtonCommand}"/>
+                <Button Content="Help" Command="{Binding HelpButtonCommand}"/>
             </ToolBar>
         </ToolBarTray>
         

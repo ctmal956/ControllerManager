@@ -295,7 +295,7 @@ namespace ControllerManager
         #region commands
 
         RelayCommand<object> _addController;
-        RelayCommand<Object> _testButton;
+        RelayCommand<Object> _helpCommand;
         RelayCommand<object> _saveCommand;
         RelayCommand<Object> _previewButton;
 
@@ -311,15 +311,15 @@ namespace ControllerManager
             }
         }
 
-        public ICommand TestButtonCommand
+        public ICommand HelpButtonCommand
         {
             get
             {
-                if (_testButton == null)
+                if (_helpCommand == null)
                 {
-                    _testButton = new RelayCommand<object>(param => this.TestButtonExecuted(), param => this.CanExecuteAlways());
+                    _helpCommand = new RelayCommand<object>(param => this.HelpButtonExecuted(), param => this.CanExecuteAlways());
                 }
-                return _testButton;
+                return _helpCommand;
             }
         }
 
@@ -367,15 +367,11 @@ namespace ControllerManager
             Save();
         }
 
-        public void TestButtonExecuted()
+        public void HelpButtonExecuted()
         {
 
-            if (_controllerManager.Controllers ==null)
-            {
-                MessageBox.Show("null");
-            }
-            ControllerReport report = new ControllerReport(_controllerManager.Controllers);
-            report.ShowDialog();
+            HelpWindow dialog = new HelpWindow();
+            dialog.ShowDialog();
 
         }
 
