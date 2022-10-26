@@ -10,14 +10,33 @@
            >
     <DockPanel.Resources>
         <Style x:Key="TitleStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontSize" Value="36"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Center"/>
         </Style>
         <Style x:Key="LocationStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Foreground"
+                    Value="BlueViolet" />
+        </Style>
+        <Style x:Key="OutputNumber" TargetType="TextBlock">
+            <Setter Property="FontSize"
+                    Value="18" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+            <Setter Property="Padding"
+                    Value="5,5,5,5" />
+        </Style>
+        <Style x:Key="ChannelName"
+               TargetType="TextBlock">
+            <Setter Property="FontSize"
+                    Value="18" />
+            <Setter Property="TextAlignment"
+                    Value="Left" />
+            <Setter Property="Padding"
+                    Value="5,5,5,5" />
         </Style>
     </DockPanel.Resources>
     <TextBlock DockPanel.Dock="Top" Width="576" Text="{Binding Name}" Style="{StaticResource TitleStyle}"/>
@@ -25,14 +44,14 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ItemsControl ItemsSource="{Binding LeftOutputs}" Grid.Column="1" Margin="5">
             <ItemsControl.Resources>
                 <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontSize" Value="18"/>
                     <Setter Property="TextAlignment" Value="Left"/>
                 </Style>
             </ItemsControl.Resources>
@@ -40,14 +59,21 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="45"/>
+                            <ColumnDefinition Width="45" />
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-                            <TextBlock  Text="{Binding Output}"/>
+                            <TextBlock  Text="{Binding Output}" Style="{StaticResource OutputNumber}"/>
                         </Border>
-                        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-                            <TextBlock  Text="{Binding Name}"/>
+                        <Border Grid.Column="1"
+                                BorderBrush="Black"
+                                BorderThickness="1">
+                            <TextBlock  Text="{Binding VixenChannelOutputNumber}" Foreground="Navy" Style="{StaticResource OutputNumber}"/>
+                        </Border>
+                        <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+                            <TextBlock  Text="{Binding Name}"
+                                        Background="{Binding ChannelColor}" Style="{StaticResource ChannelName}"/>
                         </Border>
                         
                         
@@ -58,25 +84,31 @@
 
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl ItemsSource="{Binding RightOutputs}" Grid.Column="2" Margin="5">
-            <ItemsControl.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="14"/>
-                    <Setter Property="TextAlignment" Value="Left"/>
-                </Style>
-            </ItemsControl.Resources>
+        <ItemsControl ItemsSource="{Binding RightOutputs}"
+                      Grid.Column="2"
+                      Margin="5">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="45"/>
+                            <ColumnDefinition Width="45" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-                            <TextBlock  Text="{Binding Output}"/>
+                            <TextBlock  Text="{Binding Output}" Style="{StaticResource OutputNumber}"/>
                         </Border>
-                        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-                            <TextBlock  Text="{Binding Name}"/>
+                        <Border Grid.Column="1"
+                                BorderBrush="Black"
+                                BorderThickness="1">
+                            <TextBlock  Text="{Binding VixenChannelOutputNumber}"
+                                        Foreground="Navy"
+                                        Style="{StaticResource OutputNumber}" />
+                        </Border>
+                        <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1">
+                            <TextBlock  Text="{Binding Name}"
+                                        Background="{Binding ChannelColor}"
+                                        Style="{StaticResource ChannelName}"/>
                         </Border>
 
 

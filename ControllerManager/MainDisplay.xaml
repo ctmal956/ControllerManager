@@ -22,6 +22,7 @@
         <Style TargetType="ListBox">
             <Setter Property="Margin" Value="5"/>
         </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Window.Resources>
     <DockPanel>
         <!--Top Menu-->
@@ -218,7 +219,7 @@
                                                         <ColumnDefinition Width="3"/>
                                                         <ColumnDefinition Width="*"/>
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBlock Grid.Column="0" Text="{Binding Output}"/>
+                                                    <TextBlock Grid.Column="0" Text="{Binding Output}" TextAlignment="Center"/>
                                                     <TextBlock Grid.Column="1" Text=":"/>
                                                     <Grid Grid.Column="2">
                                                         <Grid.ColumnDefinitions>
@@ -230,6 +231,8 @@
                                                             <Rectangle Height="10" Width="20" Fill="{Binding ChannelColor,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                         </Border>
                                                     </Grid>
+                                                    <Line Grid.Row="1" X1="0" Y1="1" X2="1"  Y2="0" Stroke="Red" StrokeThickness="1" Stretch="Uniform" Visibility="{Binding IsBroken,Converter={StaticResource BoolToVis}}"/>
+                                                    <Line Grid.Row="1" X1="0" Y1="0" X2="1"  Y2="1" Stroke="Red" StrokeThickness="1" Stretch="Uniform" Visibility="{Binding IsBroken,Converter={StaticResource BoolToVis}}"/>
                                                 </Grid>
                                                 
                                             </DataTemplate>

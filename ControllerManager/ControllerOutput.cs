@@ -59,9 +59,27 @@ namespace ControllerManager
             Output = output;
         }
 
+        public bool IsEnabled
+        {
+            get { return VixenChannel.VixenChannel.Enabled; }
+            set { 
+                VixenChannel.VixenChannel.Enabled = value;
+                OnPropertyChanged("IsEnabled");
+            }
+        }
 
-        public bool IsEnabled { get; set; }
-        public bool IsBroken { get; set; }
+        private bool _isBroken;
+
+        public bool IsBroken
+        {
+            get { return _isBroken; }
+            set
+            {
+                _isBroken = value;
+                OnPropertyChanged("IsBroken");
+            }
+        }
+
         public string Name
         {
             get { return _vixenOutput.Name; }
@@ -70,6 +88,12 @@ namespace ControllerManager
                 _vixenOutput.Name = value;
             }
         }
+
+        public int VixenChannelOutputNumber
+        {
+            get { return _vixenOutput.VixenChannel.OutputChannel + 1; }
+        }
+
         public IVixenChannel VixenChannel
         {
             get { return _vixenOutput; }
@@ -137,6 +161,12 @@ namespace ControllerManager
         public void RefreshChannelColor()
         {
             OnPropertyChanged("ChannelColor");
+        }
+
+        public int VixenChannelIndex
+        {
+            get { return this.VixenChannel.VixenChannel.OutputChannel; }
+            set { OnPropertyChanged("VixenChannelIndex"); }
         }
 
     }
