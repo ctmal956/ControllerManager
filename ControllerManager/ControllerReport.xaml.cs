@@ -46,8 +46,7 @@ namespace ControllerManager
         {
             PageContent content = new PageContent();
             FixedPage newPage = new FixedPage();
-            //newPage.Children.Add(SetTitle(controller.Name));
-            //(content as IAddChild).AddChild(newPage);
+            newPage.Margin = new Thickness(40, 20, 40, 20);
             ControllerReportTemplate template = new ControllerReportTemplate();
             ControllerLabelViewModel vm = new ControllerLabelViewModel(controller);
             template.DataContext = vm;
